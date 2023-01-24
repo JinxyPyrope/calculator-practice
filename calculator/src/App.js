@@ -4,22 +4,37 @@ import Screen from "./components/Screen/Screen"
 import ButtonBox from "./components/ButtonBox/ButtonBox"
 import Button from "./components/Button/Button"
 
-function App() {
+//These are the values ofthe buttons we will place in the ButtonBox
+const btnValues = [
+  ["C", "+-", "%", "/"],
+  [7, 8, 9, "X"],
+  [4, 5, 6, "-"],
+  [1, 2, 3, "+"],
+  [0, ".", "="]
+]
+
+//The "flat()" method makes a new array wit hall the subarrays combined into whichever level we want to. In this case since we didn't specify the number of "flat" we want it'll drop all arrays down one level
+//The "map()" method makes it so we can create a new array based on wah we can to occur to the previous numbers. In this case we map it out based on the "btn" and "i"
+const App = () => {
   return (
-    <>
-      <Wrapper>
-        <Screen value="0" />
-        <ButtonBox>
-          <Button
-            className=""
-            value="0"
-            onClick={() => {
-              console.log("Button Clicked!")
-            }}
-          />
-        </ButtonBox>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Screen value="0" />
+      <ButtonBox>
+        {btnValues.flat().map((btn, i) => {
+          return (
+            <Button
+              key={i}
+              className={btn === "=" ? "equals" : ""}
+              value={btn}
+              onClick={() => {
+                console.log(`${btn} clicked!`)
+              }}
+            />
+          )
+        })}
+      </ButtonBox>
+    </Wrapper>
   )
 }
+
 export default App

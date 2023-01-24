@@ -2,9 +2,7 @@ import React from "react"
 import "./ButtonBox.css"
 
 const ButtonBox = ({ children }) => {
-  return <React.Fragment className="buttonBox">{children}</React.Fragment>
+  return <div className="buttonBox">{children}</div>
 }
 
 export default ButtonBox
-
-
