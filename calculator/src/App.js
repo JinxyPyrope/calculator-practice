@@ -1,6 +1,11 @@
+import React from "react"
+import Wrapper from "./components/Wrapper/Wrapper"
+
 function App() {
-  return <div>
-    <p></p>
-  </div>
+  return (
+    <React.Fragment>
+      <Wrapper />
+    </React.Fragment>
+  )
 }
 export default App
