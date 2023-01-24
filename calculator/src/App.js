@@ -1,11 +1,13 @@
 import React from "react"
 import Wrapper from "./components/Wrapper/Wrapper"
+import Screen from "./components/Screen/Screen"
 
 function App() {
   return (
-    <React.Fragment>
+    <>
       <Wrapper />
-    </React.Fragment>
+      <Screen />
+    </>
   )
 }
 export default App
