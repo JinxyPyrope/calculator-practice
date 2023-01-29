@@ -52,6 +52,39 @@ const App = () => {
   }
   //commaClickhanlder Function End
 
+  //signClickHandler function Start
+  // This funciotn occurs when the +,-,* or / sigs are pressed and is set for the "sign" value
+  const signClickHandler = e => {
+    e.preventDefault()
+    const value = e.target.innerHTML
+
+    setCalc({
+      ...calc,
+      sign: value,
+      res: !calc.res && calc.num ? calc.num : calc.res,
+      num: 0
+    })
+  }
+  //signclickHandler Function End
+
+  //equalsClickhandler Function Starts
+  //Calculates the results when the = sign is pressed and the returned value is set a new res for further calculations
+  const equalsClickHandler = () => {
+    if (calc.sign && calc.num) {
+      const math = (a, b, sign) => (sign === "+" ? a + b : sign === "-" ? a - b : sign === "X" ? a * b : a / b)
+
+      setCalc({
+        ...calc,
+        res: calc.num === "0" && calc.sign === "/" ? "Can't divide with 0" : math(Number(calc.res), Number(calc.num), calc.sign),
+        sign: "",
+        num: 0
+      })
+    }
+  }
+  //eqaulsClickHandler Function End
+
+  //invertClickHandler Function Starts
+
   return (
     <Wrapper>
       <Screen value={calc.num ? calc.num : calc.res} />
