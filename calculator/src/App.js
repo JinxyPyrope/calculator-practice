@@ -84,6 +84,31 @@ const App = () => {
   //eqaulsClickHandler Function End
 
   //invertClickHandler Function Starts
+  //Checks if there is any calculated res value already in and then inverts them by multiplying my -1
+  const invertClickHandler = () => {
+    setCalc({
+      ...calc,
+      num: calc.num ? calc.num * -1 : 0,
+      res: calc.res ? calc.res * -1 : 0,
+      sign: ""
+    })
+  }
+  //invertClcikHandler Function Ends
+
+  //percentClickhandler Function Starts
+  //checks if the num or res value is being calculated for the percentage
+  //We use the built in "Math.pow" function to calculate the percentage
+  const percentClickHandler = () => {
+    let num = calc.num ? parseFloat(calc.num) : 0
+    let res = calc.res ? parseFloat(calc.res) : 0
+
+    setCalc({
+      ...calc,
+      num: (num /= Math.pow(100, 1)),
+      res: (res /= Math.pow(100, 1)),
+      sign: ""
+    })
+  }
 
   return (
     <Wrapper>
