@@ -23,6 +23,7 @@ const App = () => {
     res: 0
   })
 
+  //numClickHandler Function Start
   //numClick triggers only when 0-9 i clicked
   const numClickHandler = e => {
     e.preventDefault()
@@ -36,6 +37,20 @@ const App = () => {
       })
     }
   }
+  //numClickHandler Function End
+
+  //commaClickHandler Start
+  //This function occurs when the comma is pressed adding a comma to the current num value making it a decimal number it's also ocndition so extra decimals can't be added
+  const commaClickHandler = e => {
+    e.preventDefault()
+    const value = e.value.innerHTML
+
+    setCalc({
+      ...calc,
+      num: !calc.num.toString().includes(".") ? calc.num + value : calc.num
+    })
+  }
+  //commaClickhanlder Function End
 
   return (
     <Wrapper>
