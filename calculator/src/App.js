@@ -13,6 +13,11 @@ const btnValues = [
   [0, ".", "="]
 ]
 
+//This function provides value formatting creating space seperators for the numbers
+const toLocaleString = num => String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ")
+
+const removeSpaces = num => num.toString().replace(/\s/g, "")
+
 //The "flat()" method makes a new array wit hall the subarrays combined into whichever level we want to. In this case since we didn't specify the number of "flat" we want it'll drop all arrays down one level
 //The "map()" method makes it so we can create a new array based on wah we can to occur to the previous numbers. In this case we map it out based on the "btn" and "i"
 const App = () => {
@@ -29,10 +34,10 @@ const App = () => {
     e.preventDefault()
     const value = e.target.innerHTML
 
-    if (calc.num.length < 16) {
+    if (removeSpaces(calc.num).length < 16) {
       setCalc({
         ...calc,
-        num: calc.num === 0 && value === "0" ? "0" : calc.num % 1 === "0" ? Number(calc.num + value) : calc.num + value,
+        num: calc.num === 0 && value === "0" ? "0" : removeSpaces(calc.num) % 1 === 0 ? toLocaleString(Number(removeSpaces(calc.num + value))) : toLocaleString(calc.num + value),
         res: !calc.sign ? 0 : calc.res
       })
     }
@@ -75,7 +80,7 @@ const App = () => {
 
       setCalc({
         ...calc,
-        res: calc.num === "0" && calc.sign === "/" ? "Can't divide with 0" : math(Number(calc.res), Number(calc.num), calc.sign),
+        res: calc.num === "0" && calc.sign === "/" ? "Can't divide with 0" : toLocaleString(math(Number(removeSpaces(calc.res)), Number(removeSpaces(calc.num)), calc.sign)),
         sign: "",
         num: 0
       })
@@ -88,8 +93,8 @@ const App = () => {
   const invertClickHandler = () => {
     setCalc({
       ...calc,
-      num: calc.num ? calc.num * -1 : 0,
-      res: calc.res ? calc.res * -1 : 0,
+      num: calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
+      res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0,
       sign: ""
     })
   }
@@ -99,14 +104,26 @@ const App = () => {
   //checks if the num or res value is being calculated for the percentage
   //We use the built in "Math.pow" function to calculate the percentage
   const percentClickHandler = () => {
-    let num = calc.num ? parseFloat(calc.num) : 0
-    let res = calc.res ? parseFloat(calc.res) : 0
+    let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0
+    let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0
 
     setCalc({
       ...calc,
       num: (num /= Math.pow(100, 1)),
       res: (res /= Math.pow(100, 1)),
       sign: ""
+    })
+  }
+  //percentClickHandler Function Ends
+
+  //resetClickHanlder Function Starts
+  //Sets all values within the calc object into a default state
+  const resetClickHandler = () => {
+    setCalc({
+      ...calc,
+      sign: "",
+      num: 0,
+      res: 0
     })
   }
 
